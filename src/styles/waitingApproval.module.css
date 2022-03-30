@@ -1,0 +1,14 @@
+.svgButton {
+  background: white !important;
+  color: red !important;
+  border: none !important;
+}
+.v1 {
+  background-color: rgb(23, 116, 255);
+  height: 150px;
+  width: 5px;
+}
+.spinnerZoom{
+	width: 4rem !important;
+	height: 4rem !important;
+}

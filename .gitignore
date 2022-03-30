@@ -33,3 +33,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+/src/config/service-account.json
+
+/src/config.js

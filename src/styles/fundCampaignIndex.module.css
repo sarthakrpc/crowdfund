@@ -1,0 +1,219 @@
+.bodyPaddingControl {
+  padding: 1.2rem 1rem !important;
+}
+.headingControl {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 1300px;
+}
+.headingControl > div > h3 {
+  min-width: 200px;
+  font-weight: bolder;
+  margin-left: 5px;
+  opacity: 0.9; /* Standard compliant browsers */
+  -moz-opacity: 0.9; /* Firefox and Mozilla browsers */
+  -webkit-opacity: 0.9; /* WebKit browser e.g. Safari */
+}
+.mainControl {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem 0;
+}
+
+.extImgCtrl {
+  width: 347px;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  /* overflow: hidden; */
+}
+
+.descBlock {
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+.widthControlClass {
+  width: 1300px;
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0rem;
+  border: 1px solid rgb(206, 206, 206);
+  border-radius: 8px;
+  height: 200px;
+  /* margin-bottom: 5px; */
+}
+.imgDivControl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1rem;
+  padding: 1px;
+}
+.CardTitle {
+  display: inline-block;
+  max-height: 52px;
+  overflow: hidden;
+  margin: 6px 0;
+  font-size: large;
+  font-weight: 700;
+  word-wrap: break-word;
+  opacity: 0.8; /* Standard compliant browsers */
+  -moz-opacity: 0.8; /* Firefox and Mozilla browsers */
+  -webkit-opacity: 0.8; /* WebKit browser e.g. Safari */
+  color: rgb(59, 57, 57);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.CardDesc {
+  max-height: 52px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.amt {
+  font-size: x-large;
+  font-weight: 500;
+  margin: 1px 5px 1px 2px;
+}
+@media (max-width: 1420px) {
+  .widthControlClass {
+    width: 100%;
+  }
+  .headingControl {
+    width: 100%;
+  }
+  .mainControl {
+    align-items: flex-start;
+    width: -webkit-fill-available;
+    width: -moz-available;
+  }
+}
+@media (max-width: 767px) {
+  .widthControlClass {
+    margin: 0.5rem 0;
+    height: 180px;
+  }
+  .extImgCtrl {
+    width: 180px;
+    /* height: 130px; */
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .CardDesc {
+    max-height: 50px;
+  }
+}
+@media (max-width: 522px) {
+  .headingControl {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .widthControlClass {
+    margin: 0.5rem 0;
+    height: 180px;
+  }
+  .extImgCtrl {
+    width: 160px;
+    /* height: -webkit-fill-available;
+    height: -moz-available; */
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .CardDesc {
+    max-height: 50px;
+  }
+  .mainControl {
+    padding: 0.4rem 0;
+  }
+}
+@media (max-width: 450px) {
+  .extImgCtrl {
+    width: 140px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .CardDesc {
+    display: none;
+  }
+  .CardTitle {
+    max-height: 70px;
+    height: 100%;
+    font-size: medium;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 450px) {
+  .amtBlock {
+    margin-bottom: 0.5rem !important;
+  }
+}
+.formCtrlOverride {
+  height: min-content;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.formFullWidth {
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+.datePickerCol {
+  display: inline-block;
+  position: relative;
+  width: -webkit-fill-available;
+  width: -moz-available;
+}
+.requiredAsterik {
+  content: "*";
+  color: red;
+}
+.negativeMargin {
+  position: absolute;
+  margin-top: -16px;
+}
+.ImageSelect {
+  border: 6px solid rgb(0, 102, 255);
+  border-radius: 4px;
+}
+.containerRelative {
+  position: relative;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-size: large;
+  font-weight: bolder;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 1s ease-in-out;
+  background-color: rgba(0, 17, 255, 0.753);
+  padding: 3px;
+  border-radius: 6px;
+}
+.modalContent {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
