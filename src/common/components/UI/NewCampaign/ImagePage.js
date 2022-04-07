@@ -67,6 +67,7 @@ const ImagePage = ({ nextStep, formValue, handleImagePageData, modalShow, trigge
               handleCoverImage={handleCoverImage}
               controlError={controlError}
               errorBootstrapShow={errorBootstrapShow}
+			  uploadFileName="theImages"
             />
           </Form.Group>
 

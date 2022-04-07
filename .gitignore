@@ -37,3 +37,7 @@ yarn-error.log*
 /src/config/service-account.json
 
 /src/config.js
+
+next.config.js
+
+env.local

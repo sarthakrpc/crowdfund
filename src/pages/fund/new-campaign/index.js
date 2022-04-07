@@ -29,7 +29,7 @@ const index = () => {
   const [verified, setVerified] = useState(false);
   const [stringConfirmation, setStringConfirmation] = useState("");
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [modalShow, setModalShow] = useState(false);
   //state for form data
   const [formData, setFormData] = useState({
@@ -128,7 +128,15 @@ const index = () => {
         setStringConfirmation("Synchronizing from Server...");
 
         for (let index = 0; index < formData.images.length; index++) {
-          console.log(formData.images[index]);
+		  const body = new FormData();
+		  body.append("file",formData.images[index])
+		  body.append("foldername", uid)
+		  body.append("filename", `${index}`)
+		  const response = await fetch("/api/new-campaign/projectImg",{
+			  method: "POST",
+			  body
+		  })
+		  console.log(response);
 		}
 
         // const projectAddress = events[0].args.contractAddress;

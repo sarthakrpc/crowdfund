@@ -11,13 +11,13 @@ const index = () => {
       <div className={`${styles.mainControl} ${styles.bodyPaddingControl}`}>
         <HeadingCtrls />
         <div className={styles.mainControl}>
-          <CampaignCard 
-		  	header="Header" 
-			description = "body will go here all data "
-			tokenAmount = "32"
-			percentage = "76"
-			chainID = ""
-		  />
+          <CampaignCard
+            header="Title will go here"
+            description="Description will go here"
+            tokenAmount="32"
+            percentage="76"
+            chainID=""
+          />
         </div>
       </div>
     </>
