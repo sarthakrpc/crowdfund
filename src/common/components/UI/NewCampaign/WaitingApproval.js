@@ -8,6 +8,7 @@ const WaitingApproval = ({
   serverValidating,
   verified,
   stringConfirmation,
+  error,
 }) => {
   const classesImg =
     "d-flex justify-content-center align-items-center p-2 rounded-circle my-1 position-relative";
@@ -42,7 +43,7 @@ const WaitingApproval = ({
               <div className={`${networkValidating ? "opacity-50" : ""}`}>
                 <div className={`${classesImg} `}>
                   <Image src={"/metamask-logo.png"} width={50} height={50} />
-                  {networkValidating ? (
+                  {networkValidating && !error ? (
                     <>
                       <Spinner
                         animation="border"
@@ -58,12 +59,14 @@ const WaitingApproval = ({
 
               <div
                 className={`${
-                  serverValidating || networkValidating ? "opacity-50" : ""
+                  serverValidating || networkValidating || error
+                    ? "opacity-50"
+                    : ""
                 }`}
               >
                 <div className={`${classesImg}`}>
                   <Image src={"/server-logo.png"} width={50} height={50} />
-                  {serverValidating ? (
+                  {serverValidating && !error ? (
                     <>
                       <Spinner
                         animation="border"
@@ -97,8 +100,12 @@ const WaitingApproval = ({
               </div>
             </div>
             <div className="d-flex flex-column ms-5 flex-sm-row align-items-center">
-              {!verified ? (
+              {!verified && !error ? (
                 <Spinner animation="grow" variant="info" className="me-2" />
+              ) : error ? (
+                <div style={{ width: "55px" }}>
+                  <Image src={"/cloud-error.png"} width={50} height={50} />
+                </div>
               ) : (
                 <div style={{ width: "55px" }}>
                   <img src={"/success.gif"} height="50" />
@@ -106,7 +113,11 @@ const WaitingApproval = ({
               )}
               <div>
                 {" "}
-                <h5 className="m-0 text-success text-align-center">
+                <h5
+                  className={`m-0 ${
+                    !error ? "text-success" : "text-danger"
+                  } text-align-center`}
+                >
                   {stringConfirmation}
                 </h5>
               </div>

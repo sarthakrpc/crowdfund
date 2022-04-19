@@ -1,14 +1,39 @@
-import dbConnect from "../../../../utils/dbConnect";
-import campaign from "../../../../mongooseModel/campaign";
+import connectDB from "../../../../middleware/mongodb";
+import Project from "../../../../mongooseModel/campaign";
+import abiProject from "../../../../contractABI/projectABI.json";
+import { ethers } from "ethers";
 
-dbConnect();
+const handler = async (req, res) => {
+  if (req.method === "POST") {
+    const url = "http://localhost:8545";
+    const projectAddress = req.body.projectAddress;
+    const provider = new ethers.providers.JsonRpcProvider(url);
 
-export default async (req, res) => {
-  const { method } = req;
+    const projectContract = new ethers.Contract(
+      projectAddress,
+      abiProject.abi,
+      provider
+    );
 
-  if(method === "POST"){
-	
-  }else{
-	  return -1;
+    const projectDetails = await projectContract.getDetails();
+    console.log(projectDetails);
+
+	const project = new Project({
+		projectStarter: projectDetails.projectStarter,
+		projectAddress,
+		uid: projectDetails.uniqueIdentifier,
+		title: req.body.title,
+		description: req.body.description,
+		amount: projectDetails.goalAmount.toString(),
+		deadlineInt: projectDetails.deadline,
+		coverImage: req.body.coverImage,
+		link: req.body.link,
+	})
+	let projectCreated = await project.save()
+    res.status(200).send(projectCreated);
+  } else {
+    res.status(422).send("req_method_not_supported");
   }
 };
+
+export default connectDB(handler);

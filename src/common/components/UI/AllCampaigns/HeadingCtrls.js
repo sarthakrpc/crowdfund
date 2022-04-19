@@ -1,5 +1,5 @@
 import React from "react";
-import { ProgressBar, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import styles from "../../../../styles/fundCampaignIndex.module.css";
 
 const HeadingCtrls = () => {

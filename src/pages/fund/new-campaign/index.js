@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ethers, utils, BigNumber } from "ethers";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 import HTMLHead from "../../../common/components/HTMLHead";
 import TitleElement from "../../../common/components/UI/NewCampaign/TitleElement";
 import styles from "../../../styles/fundCampaignIndex.module.css";
@@ -27,6 +28,7 @@ const index = () => {
   const [networkValidating, setNetworkValidating] = useState(false);
   const [serverValidating, setServerValidating] = useState(false);
   const [verified, setVerified] = useState(false);
+  const [error, setError] = useState(false)
   const [stringConfirmation, setStringConfirmation] = useState("");
 
   const [step, setStep] = useState(0);
@@ -87,30 +89,31 @@ const index = () => {
   const onChainSubmit = async () => {
     if (isConnected && isSupportedNetwork) {
       try {
-        // setNetworkValidating(true);
-        // setStringConfirmation("Confirmation from Blockchain...");
-        // const weiValue = utils.parseEther(formData.amount.toString());
+        setNetworkValidating(true);
+        setStringConfirmation("Confirmation from Blockchain...");
+        const weiValue = utils.parseEther(formData.amount.toString());
 
-        // const numStartDate = Math.round(new Date().getTime() / 1000);
+        const numStartDate = Math.round(new Date().getTime() / 1000);
 
-        // const deadline = formData.deadline;
-        // const numEndDate = Math.round(new Date(deadline).getTime() / 1000);
+        const deadline = formData.deadline;
+        const numEndDate = Math.round(new Date(deadline).getTime() / 1000);
 
         const uid = uniqueIdGenerator();
 
-        // const crowdfundContract = new ethers.Contract(
-        //   addressCrowdfund,
-        //   abiCrowdfund.abi,
-        //   signer
-        // );
-        // const sendTransaction = await crowdfundContract.startProject(
-        //   feesTaker,
-        //   weiValue,
-        //   numEndDate,
-        //   uid
-        // );
-        // const receipt = await sendTransaction.wait();
-        // const events = receipt?.events;
+        const crowdfundContract = new ethers.Contract(
+          addressCrowdfund,
+          abiCrowdfund.abi,
+          signer
+        );
+        const sendTransaction = await crowdfundContract.startProject(
+          feesTaker,
+          weiValue,
+          numEndDate,
+          uid
+        );
+
+        const receipt = await sendTransaction.wait();
+        const events = receipt?.events;
         // console.log(events[0].args.contractAddress);
         // console.log(BigNumber.from(events[0].args.deadline).toString());
         // console.log(events[0].args.projectStarter);
@@ -121,6 +124,8 @@ const index = () => {
         // );
         // console.log(events[0].args.uniqueId);
 
+        const addressProject = events[0].args.contractAddress.toString();
+
         // const getAllAddress = await crowdfundContract.returnAllProjects();
         // console.log(getAllAddress);
         setNetworkValidating(false);
@@ -128,30 +133,55 @@ const index = () => {
         setStringConfirmation("Synchronizing from Server...");
 
         for (let index = 0; index < formData.images.length; index++) {
-		  const body = new FormData();
-		  body.append("file",formData.images[index])
-		  body.append("foldername", uid)
-		  body.append("filename", `${index}`)
-		  const response = await fetch("/api/new-campaign/projectImg",{
-			  method: "POST",
-			  body
-		  })
-		  console.log(response);
-		}
+          const bodyData = new FormData();
+          let fileImg = new File(
+            [formData.images[index]],
+            `${formData.images[index].name}`
+          );
+          bodyData.append("media", fileImg);
 
-        // const projectAddress = events[0].args.contractAddress;
-        // const ownerAddress = events[0].args.projectStarter;
-        // const tokenAmount = ethers.utils.formatEther(
-        //   BigNumber.from(events[0].args.goalAmount).toString()
-        // );
+          bodyData.append("foldername", uid);
+          await axios("/api/new-campaign/projectImg", {
+            method: "POST",
+            data: bodyData,
+            "Content-Type": "multipart/form-data",
+          }).then((res) => console.log(res));
+        }
 
-        setTimeout(() => {
-          setServerValidating(false);
-          setVerified(true);
-          setStringConfirmation("Your project has been submitted!");
-        }, 5000);
-      } catch (err) {
-        console.log(err);
+        const data = {
+          projectAddress: addressProject,
+          title: formData.title,
+          description: formData.description,
+          coverImage: formData.coverImg.name,
+          link: formData.link,
+        };
+        fetch("/api/new-campaign", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            setServerValidating(false);
+            setVerified(true);
+            setStringConfirmation("Your project has been submitted!");
+          })
+          .catch((err) => {
+            console.log(err);
+			setServerValidating(false);
+			setVerified(false);
+			setError(true)
+			setStringConfirmation("Error, could not submit project!!!");
+          });
+      } catch (error) {
+        console.log(error);
+		setServerValidating(false);
+		setVerified(false);
+		setError(true)
+		setStringConfirmation("Something went wrong!!!");
       }
     } else {
       alert("Please connect to a supported network");
@@ -198,6 +228,7 @@ const index = () => {
                 serverValidating={serverValidating}
                 verified={verified}
                 stringConfirmation={stringConfirmation}
+				error={error}
               />
             </>
           ) : (

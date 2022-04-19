@@ -11,6 +11,7 @@ import {
   FANTOM_TESTNET_CHAIN_ID,
 } from "../../../hooks/chainDetails/testnetDetails";
 import useMetaMask from "../../../hooks/Web3Connect/GetConnection";
+import NetworkImgRender from "../Shareables/NetworkImgRender";
 
 const retDate = () => {
   const d = new Date();
@@ -126,7 +127,8 @@ const FormPage = ({ nextStep, formValue, handleFormPageData }) => {
                   <span className={styles.requiredAsterik}>*</span>
                   <div className="mx-2 d-flex">
                     <div className={styles.negativeMargin}>
-                      <Image
+					<NetworkImgRender />
+                      {/* <Image
                         src={`/${
                           currentNetwork === POLYGON_TESTNET_CHAIN_ID &&
                           isConnected
@@ -142,7 +144,7 @@ const FormPage = ({ nextStep, formValue, handleFormPageData }) => {
                         alt="Picture of the author"
                         width={20}
                         height={20}
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>

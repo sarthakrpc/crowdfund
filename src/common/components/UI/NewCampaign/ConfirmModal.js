@@ -7,6 +7,7 @@ import {
   FANTOM_TESTNET_CHAIN_ID,
   LOCALHOST_TESTNET_CHAIN_ID,
 } from "../../../hooks/chainDetails/testnetDetails";
+import NetworkImgRender from "../Shareables/NetworkImgRender";
 import styles from "../../../../styles/fundCampaignIndex.module.css";
 
 const ConfirmModal = ({ formValue, onHide, show, closeModal }) => {
@@ -51,7 +52,10 @@ const ConfirmModal = ({ formValue, onHide, show, closeModal }) => {
                     {formValue.amount}{" "}
                   </span>
                   <div className="ms-1">
-                    <img
+                    <div className="mt-1">
+                      <NetworkImgRender />
+                    </div>
+                    {/* <img
                       src={`/${
                         currentNetwork === POLYGON_TESTNET_CHAIN_ID &&
                         isConnected
@@ -67,7 +71,7 @@ const ConfirmModal = ({ formValue, onHide, show, closeModal }) => {
                       alt="Picture of the author"
                       width={20}
                       height={20}
-                    />
+                    /> */}
                   </div>
                 </div>
               </Col>

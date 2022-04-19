@@ -70,6 +70,7 @@ const CompressedImage = ({
 
   const handleImageClick = (index) => {
     console.log(index);
+	console.log(ImgOriginalFile[index].name);
     handleCoverImage(index);
   };
 
