@@ -4,7 +4,7 @@ import abiProject from "../../../../contractABI/projectABI.json";
 import { ethers } from "ethers";
 
 const handler = async (req, res) => {
-  if (req.method === "POST") {
+  if (req.method === "GET") {
     const allProjects = await Project.find({});
     const url = "http://localhost:8545";
     for (const project of allProjects) {
@@ -22,10 +22,10 @@ const handler = async (req, res) => {
       const goalEthAmt = ethers.utils.formatEther(goalAmount);
       const percentage = (currEthAmount / goalEthAmt) * 100;
 
-      project.percentageCompleted = percentage;
+      project.percentageCompleted =  Math.floor(percentage);;
       project.goalEthAmt = goalEthAmt;
       project.currEthAmount = currEthAmount;
-	  
+	  project.deadlineInt = projectDetails.deadline;
     }
 	//console.log(allProjects);
     res.status(200).send(allProjects);

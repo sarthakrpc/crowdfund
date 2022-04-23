@@ -32,3 +32,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   width: -webkit-fill-available;
   width: -moz-available;
 }
+header{
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}

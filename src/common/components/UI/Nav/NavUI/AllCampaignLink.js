@@ -9,7 +9,7 @@ const AllCampaignLink = ({router}) => {
         <Nav.Item>
           <Nav.Link
             className={`ps-2 ${
-              router.pathname === "/fund/campaigns"
+              router.pathname.includes("/fund/campaigns")
                 ? "text-light bg-primary"
                 : "bg-light text-primary"
             }`}

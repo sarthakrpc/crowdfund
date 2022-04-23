@@ -10,7 +10,7 @@ const projectSchema = new Schema({
   amount: { type: String, required: true, trim: true },
   // deadline: { type: Date, required: true, trim: true },
   deadlineInt: { type: Number, required: true, trim: true },
-  // images: { type: [String], required: true, trim: true },
+  images: { type: [String], required: true, trim: true },
   coverImage: { type: String, required: true, trim: true },
   link: { type: String, required: false, trim: true },
   percentageCompleted: { type: Number, required: false, trim: true },

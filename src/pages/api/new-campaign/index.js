@@ -16,10 +16,10 @@ const handler = async (req, res) => {
     );
 
     const projectDetails = await projectContract.getDetails();
-    console.log(projectDetails);
+    //console.log(projectDetails);
 
 	const project = new Project({
-		projectStarter: projectDetails.projectStarter,
+		projectStarter: projectDetails.projectStarter.toLowerCase(),
 		projectAddress,
 		uid: projectDetails.uniqueIdentifier,
 		title: req.body.title,
@@ -27,9 +27,11 @@ const handler = async (req, res) => {
 		amount: projectDetails.goalAmount.toString(),
 		deadlineInt: projectDetails.deadline,
 		coverImage: req.body.coverImage,
+		images: req.body.images,
 		link: req.body.link,
 	})
 	let projectCreated = await project.save()
+	
     res.status(200).send(projectCreated);
   } else {
     res.status(422).send("req_method_not_supported");

@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "../../../../styles/fundCampaignIndex.module.css";
 
-const TitleElement = () => {
+const TitleElement = ( {titleName} ) => {
   return (
     <>
       <div className={styles.headingControl}>
         <div>
-          <h3>New Campaign</h3>
+          <h3>{titleName}</h3>
         </div>
       </div>
     </>

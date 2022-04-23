@@ -41,3 +41,5 @@ yarn-error.log*
 next.config.js
 
 env.local
+
+/public/projectAssets/

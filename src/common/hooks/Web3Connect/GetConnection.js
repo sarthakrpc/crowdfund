@@ -29,7 +29,7 @@ export const GetConnection = ({ children }) => {
       if (provider.connection.url.includes("metamask")) {
         await provider.send("eth_requestAccounts", []);
         const signer = await provider.getSigner();
-        const userAddress = await signer.getAddress();
+        const userAddress = await((await signer.getAddress()).toLowerCase());
 
         const networkId = await (await provider.getNetwork()).chainId;
 
@@ -39,6 +39,8 @@ export const GetConnection = ({ children }) => {
         await setcurrentNetwork(networkId);
         await setisConnected(true);
         await setisSupportedNetwork(true);
+
+		console.log(signer);
 
         if (!CHAIN_IDS.includes(networkId)) {
           setisSupportedNetwork(false);

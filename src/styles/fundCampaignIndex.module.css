@@ -159,11 +159,16 @@
   }
 }
 
-@media (min-width: 450px) {
+.amtBlock {
+  margin-bottom: 1rem !important;
+}
+
+@media (max-width: 767px) {
   .amtBlock {
     margin-bottom: 0.5rem !important;
   }
 }
+
 .formCtrlOverride {
   height: min-content;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -211,6 +216,59 @@
 .modalContent {
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+
+.setDescStyle {
+  display: -webkit-box;
+  white-space: pre-line;
+}
+
+.networkZoomIn {
+  margin-top: 0.8rem;
+  transform: scale(1.25);
+  margin-left: 10px;
+}
+
+.donateCard {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  padding: 1rem !important;
+  align-items: baseline;
+}
+@media (max-width: 991px) {
+  .networkZoomIn {
+    margin-top: 0.5rem;
+  }
+  .donateInputCtrl {
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .donateCard {
+    width: 360px !important;
+  }
+  /* .overrideDescWidth {
+    margin-right: 390px;
+  } */
+}
+
+.modalHeader {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+.overflowAddress {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;

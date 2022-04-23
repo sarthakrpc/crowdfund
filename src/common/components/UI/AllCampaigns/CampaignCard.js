@@ -1,6 +1,8 @@
 import { ProgressBar, Form } from "react-bootstrap";
-import Image from "next/image";
 import styles from "../../../../styles/fundCampaignIndex.module.css";
+import useWindowDimensions from "./../Shareables/useWindowDimensions";
+import NetworkDynamicRender from "../Shareables/NetworkDynamicRender";
+import { useEffect, useState } from "react";
 
 const CampaignCard = ({
   header,
@@ -10,9 +12,18 @@ const CampaignCard = ({
   chainID,
   src,
   uid,
+  deadlineDate,
 }) => {
+  const size = useWindowDimensions();
+  const [widthScreen, setWidth] = useState("");
+  useEffect(() => {
+    setWidth(size.width);
+  },);
+
   return (
     <>
+      {/* {console.log("height, width")} */}
+	  <div className={styles.widthControlClass} role="button">
       <div className={styles.imgDivControl}>
         <img className={styles.extImgCtrl} src={src} alt="thumbnail" />
       </div>
@@ -21,18 +32,30 @@ const CampaignCard = ({
       >
         <div className="d-flex flex-column me-1">
           <div className={styles.CardTitle}> {header}</div>
-          <div className={styles.CardDesc}>{description}</div>
+          <div className={`${styles.CardDesc}`}>{description}</div>
         </div>
-        <div className={`display-flex flex-row mb-4 me-2 ${styles.amtBlock}`}>
-          <div className="display-flex flex-column">
-            <div className="display-flex flex-row m-1 ">
-              <span className={styles.amt}>{tokenAmount}</span>
-              <Image src="/fantom-logo.png" width={19} height={19} />
+        <div className={`d-flex flex-row mb-4 pe-2 w-100 ${styles.amtBlock}`}>
+          <div className="d-flex flex-column w-100">
+            <div className="d-flex flex-row justify-content-start align-items-center">
+              <div className="d-flex flex-row m-1 align-items-center">
+                <span className={styles.amt}>
+                  {tokenAmount.toLocaleString()}
+                </span>
+                <NetworkDynamicRender networkId={1337} />
+              </div>
+              <div
+                className={`ms-3 ${
+                  deadlineDate === "EXPIRED" ? "text-danger" : "text-primary"
+                } fw-bold`}
+              >
+                {widthScreen > 500 ? deadlineDate : ""}
+              </div>
             </div>
-            <ProgressBar animated now={percentage} label={`${percentage}%`} />
+            <ProgressBar now={percentage} label={`${percentage}%`} />
           </div>
         </div>
       </div>
+	  </div>
     </>
   );
 };

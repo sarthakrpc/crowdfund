@@ -92,6 +92,7 @@ const index = () => {
         setNetworkValidating(true);
         setStringConfirmation("Confirmation from Blockchain...");
         const weiValue = utils.parseEther(formData.amount.toString());
+		console.log(weiValue);
 
         const numStartDate = Math.round(new Date().getTime() / 1000);
 
@@ -132,13 +133,14 @@ const index = () => {
         setServerValidating(true);
         setStringConfirmation("Synchronizing from Server...");
 
+		let imageNames = [];
+
         for (let index = 0; index < formData.images.length; index++) {
           const bodyData = new FormData();
-          let fileImg = new File(
-            [formData.images[index]],
-            `${formData.images[index].name}`
-          );
+          let fileImg = new File([formData.images[index]],`${formData.images[index].name}`);
           bodyData.append("media", fileImg);
+
+		  imageNames.push(formData.images[index].name)
 
           bodyData.append("foldername", uid);
           await axios("/api/new-campaign/projectImg", {
@@ -148,12 +150,15 @@ const index = () => {
           }).then((res) => console.log(res));
         }
 
+		console.log(imageNames);
+
         const data = {
-          projectAddress: addressProject,
+          projectAddress: addressProject.toLowerCase(),
           title: formData.title,
           description: formData.description,
           coverImage: formData.coverImg.name,
           link: formData.link,
+		  images: imageNames
         };
         fetch("/api/new-campaign", {
           method: "POST",
@@ -193,7 +198,7 @@ const index = () => {
     <>
       <HTMLHead title="New Campaign" />
       <div className={`${styles.mainControl} ${styles.bodyPaddingControl}`}>
-        <TitleElement />
+        <TitleElement titleName="New Campaign"/>
         <div className={styles.mainControl}>
           {step === 0 ? (
             <FormPage
