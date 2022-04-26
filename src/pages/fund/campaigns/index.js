@@ -8,7 +8,7 @@ import HeadingCtrls from "../../../common/components/UI/AllCampaigns/HeadingCtrl
 import moment from "moment";
 
 export const getStaticProps = async () => {
-  const res = await fetch("https://crowdfund-black.vercel.app/api/all-campaigns");
+  const res = await fetch("https://crowdfund-ccgg6dlco-sarthakkumar766.vercel.app/api/all-campaigns");
   const data = await res.json();
   return {
     props: { campaigns: data },
