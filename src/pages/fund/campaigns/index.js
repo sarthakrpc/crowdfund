@@ -4,7 +4,7 @@ import styles from "../../../styles/fundCampaignIndex.module.css";
 import CampaignCard from "../../../common/components/UI/AllCampaigns/CampaignCard";
 import { Button, Spinner, Badge } from "react-bootstrap";
 import Link from "next/link";
-import HeadingCtrls from "../../../common/components/UI/AllCampaigns/headingCtrls";
+import HeadingCtrls from "../../../common/components/UI/AllCampaigns/HeadingCtrls";
 import moment from "moment";
 
 export const getStaticProps = async () => {
