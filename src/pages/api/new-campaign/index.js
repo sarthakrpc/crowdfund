@@ -16,7 +16,6 @@ const handler = async (req, res) => {
     );
 
     const projectDetails = await projectContract.getDetails();
-    //console.log(projectDetails);
 
 	const project = new Project({
 		projectStarter: projectDetails.projectStarter.toLowerCase(),
