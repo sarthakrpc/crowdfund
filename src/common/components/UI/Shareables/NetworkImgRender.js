@@ -13,11 +13,12 @@ const NetworkImgRender = () => {
     <>
       <Image
         src={`/${
-          currentNetwork === POLYGON_TESTNET_CHAIN_ID && isConnected
-            ? "polygon"
-            : currentNetwork === FANTOM_TESTNET_CHAIN_ID && isConnected
-            ? "fantom"
-            : currentNetwork === LOCALHOST_TESTNET_CHAIN_ID && isConnected
+        //   currentNetwork === POLYGON_TESTNET_CHAIN_ID && isConnected
+        //     ? "polygon"
+        //     : currentNetwork === FANTOM_TESTNET_CHAIN_ID && isConnected
+        //     ? "fantom"
+        //     : 
+			currentNetwork === LOCALHOST_TESTNET_CHAIN_ID && isConnected
             ? "localhost"
             : "disconnected"
         }-logo.png`}

@@ -1,12 +1,12 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import useMetaMask from "../../../../hooks/Web3Connect/GetConnection";
-
+import { LOCALHOST_TESTNET_CHAIN_ID } from "../../../../hooks/chainDetails/testnetDetails";
 const CONNECT_LABEL = "Connect Wallet";
-const WRONG_NETWORK_LABEL = "Wrong Network";
+const WRONG_NETWORK_LABEL = "Change Network";
 
 const ConnectBtn = () => {
-  const { address, isSupportedNetwork, getAddressAsync } = useMetaMask();
+  const { address, isSupportedNetwork, getAddressAsync, switchNetwork } = useMetaMask();
   let renderAddress = address;
   if (renderAddress !== "" && isSupportedNetwork === true) {
     renderAddress = `${renderAddress.slice(0, 8)}...${renderAddress.slice(-4)}`;
@@ -27,7 +27,8 @@ const ConnectBtn = () => {
             ? "btn-danger"
             : "btn-primary"
         }
-        onClick={renderAddress === CONNECT_LABEL ? getAddressAsync : undefined}
+        onClick={renderAddress === CONNECT_LABEL ? getAddressAsync 
+		: () => {switchNetwork(LOCALHOST_TESTNET_CHAIN_ID)}}
       >
         {renderAddress === CONNECT_LABEL ? (
           <>{renderAddress}</>

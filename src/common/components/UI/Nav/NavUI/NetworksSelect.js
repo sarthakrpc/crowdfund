@@ -7,7 +7,7 @@ import LocalhostRender from "./selectNetwork/LocalhostRender";
 import {
   POLYGON_TESTNET_CHAIN_ID,
   FANTOM_TESTNET_CHAIN_ID,
-  LOCALHOST_TESTNET_CHAIN_ID
+  LOCALHOST_TESTNET_CHAIN_ID,
 } from "../../../../hooks/chainDetails/testnetDetails";
 
 const NetworksSelect = () => {
@@ -21,21 +21,23 @@ const NetworksSelect = () => {
           id="dropdown-basic-button"
           className="me-2 border border-secondary"
         >
-          {currentNetwork === POLYGON_TESTNET_CHAIN_ID &&
+          {/* currentNetwork === POLYGON_TESTNET_CHAIN_ID &&
           isConnected === true ? (
             <PolygonRender />
-          ) : currentNetwork === FANTOM_TESTNET_CHAIN_ID &&
+          ) 
+		  : currentNetwork === FANTOM_TESTNET_CHAIN_ID &&
             isConnected === true ? (
             <FantomRender />
-          ) : currentNetwork === LOCALHOST_TESTNET_CHAIN_ID &&
-            isConnected === true ? (
+          ) 
+		  :  */}
+          {currentNetwork === LOCALHOST_TESTNET_CHAIN_ID &&
+          isConnected === true ? (
             <LocalhostRender />
-			):
-		  (
-            <span> Select Network</span>
+          ) : (
+            <span>Not Supported</span>
           )}
         </Dropdown.Toggle>
-        <Dropdown.Menu bg="light" variant="light">
+        {/* <Dropdown.Menu bg="light" variant="light">
           <Dropdown.Item
             className="d-flex"
             onClick={() => {
@@ -56,7 +58,7 @@ const NetworksSelect = () => {
             <FantomRender />
           </Dropdown.Item>
 
-		  <Dropdown.Item
+          <Dropdown.Item
             className="d-flex"
             onClick={() => {
               console.log("localhost");
@@ -65,7 +67,7 @@ const NetworksSelect = () => {
           >
             <LocalhostRender />
           </Dropdown.Item>
-        </Dropdown.Menu>
+        </Dropdown.Menu> */}
       </Dropdown>
     </>
   );
