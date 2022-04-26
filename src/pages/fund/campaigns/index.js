@@ -7,23 +7,36 @@ import Link from "next/link";
 import HeadingCtrls from "../../../common/components/UI/AllCampaigns/HeadingCtrls";
 import moment from "moment";
 
-export const getStaticProps = async () => {
-  const res = await fetch("https://crowdfund-ccgg6dlco-sarthakkumar766.vercel.app/api/all-campaigns");
-  const data = await res.json();
-  return {
-    props: { campaigns: data },
-  };
-};
+// export const getStaticProps = async () => {
+//   const res = await fetch("http://localhost:3000/api/all-campaigns");
+//   const data = await res.json();
+//   return {
+//     props: { campaigns: data },
+//   };
+// };
 
-const index = ({ campaigns }) => {
+const index = () => {
   const [search, setSearch] = useState("");
+  const [updatedCampaigns, setUpdatedCampaigns] = useState([]);
+  const [allCampaigns, setAllCampaigns] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [updatedCampaigns, setUpdatedCampaigns] = useState(campaigns);
+
+  useEffect(() => {
+    const getCampaigns = async () => {
+      const res = await fetch("/api/all-campaigns");
+      const data = await res.json();
+	  setAllCampaigns(data);
+      setUpdatedCampaigns(data);
+	  setIsLoading(false);
+    };
+    getCampaigns();
+  }, []);
+
   const handleSearch = (e) => {
     setIsLoading(true);
     const value = e.target.value;
     setSearch(value);
-    let filteredCampaigns = campaigns.filter(function (el) {
+    let filteredCampaigns = allCampaigns.filter(function (el) {
       return el.title.includes(value);
     });
     setIsLoading(false);
@@ -35,9 +48,9 @@ const index = ({ campaigns }) => {
     const formatReturn = `${dateFormatted}`;
     return formatReturn;
   };
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
+//   useEffect(() => {
+//     setIsLoading(false);
+//   }, []);
 
   return (
     <>
@@ -59,7 +72,7 @@ const index = ({ campaigns }) => {
                 Loading...
               </Button>
             </div>
-          ) : updatedCampaigns.length > 0 ? (
+          ) : updatedCampaigns.length > 0 && !isLoading ? (
             updatedCampaigns.map((campaign) => (
               <Link href={`/fund/campaigns/${campaign.uid}`} key={campaign.uid}>
                 <a className="w-100 text-decoration-none">
@@ -79,11 +92,15 @@ const index = ({ campaigns }) => {
             ))
           ) : (
             <>
-              <div className="w-100 d-flex justify-content-center align-items-center" style={{"height": "400px"}}>
+              {""}
+              {/* <div
+                className="w-100 d-flex justify-content-center align-items-center"
+                style={{ height: "400px" }}
+              >
                 <h2>
                   <Badge bg="danger">No Data Found!!!</Badge>
                 </h2>
-              </div>
+              </div> */}
             </>
           )}
         </div>
