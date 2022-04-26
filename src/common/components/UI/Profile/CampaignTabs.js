@@ -158,8 +158,10 @@ const CampaignTabs = ({ address, isSupportedNetwork, isConnected, signer }) => {
     let isSubscribed = true;
     // setIsLoading(true);
     const fetchRequests = async () => {
-      if (!contribution.length) {
-        setIsLoading(true);
+      if (contribution) {
+        if (!contribution.length) {
+          setIsLoading(true);
+        }
       }
       if (key === "campaigns") {
         const body = JSON.stringify({ projectStarter: address });
