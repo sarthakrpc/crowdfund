@@ -29,12 +29,12 @@ const index = () => {
           </div>
           <div className="d-flex flex-row justify-content-start w-100 mt-3">
             <div className="w-100">
-              <CampaignTabs 
-				  address={address}
-				  isSupportedNetwork={isSupportedNetwork}
-				  isConnected={isConnected}
-				  signer={signer}
-			  />
+              <CampaignTabs
+                address={address}
+                isSupportedNetwork={isSupportedNetwork}
+                isConnected={isConnected}
+                signer={signer}
+              />
             </div>
           </div>
         </div>

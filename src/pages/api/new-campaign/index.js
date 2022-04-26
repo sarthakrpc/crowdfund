@@ -28,7 +28,7 @@ const handler = async (req, res) => {
 		deadlineInt: projectDetails.deadline,
 		coverImage: req.body.coverImage,
 		images: req.body.images,
-		link: req.body.link,
+		ytLink: req.body.link,
 	})
 	let projectCreated = await project.save()
 	

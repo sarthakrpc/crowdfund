@@ -1,17 +1,11 @@
 import { useState } from "react";
-import Link from 'next/link'
+import Link from "next/link";
 import { Button, Modal } from "react-bootstrap";
 import styles from "../../../../../../styles/fundCampaignIndex.module.css";
 
-const ModalContribution = ({ handleClose, handleShow, show, title }) => {
-  //   const handleClose = () => setShow(false);
-  //   const handleShow = () => setShow(true);
+const ModalContribution = ({ handleClose, handleShow, show, title, note }) => {
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch static backdrop modal
-      </Button> */}
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -38,7 +32,7 @@ const ModalContribution = ({ handleClose, handleShow, show, title }) => {
             </div>
             <div className="mb-4 fw-bolder">
               {" "}
-              <h3>Thanks for your contribution</h3>{" "}
+              <h3>{note}</h3>{" "}
             </div>
 
             <Link href="/fund/campaigns">

@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     const { uid } = req.query;
-	const url = "http://localhost:8545";
+    const url = "http://localhost:8545";
     const project = await Project.findOne({ uid: uid.toString() });
     const projectAddress = project.projectAddress.toString();
     const provider = new ethers.providers.JsonRpcProvider(url);
@@ -18,18 +18,31 @@ const handler = async (req, res) => {
     const projectDetails = await projectContract.getDetails();
     const currAmount = projectDetails.currentAmount.toString();
     const goalAmount = projectDetails.goalAmount.toString();
-    const currEthAmount = ethers.utils.formatEther(currAmount);
+    let currEthAmount = ethers.utils.formatEther(currAmount);
     const goalEthAmt = ethers.utils.formatEther(goalAmount);
-    const percentage = (currEthAmount / goalEthAmt) * 100;
+
+    const currentState = projectDetails.currentState;
+    let percentage = 0;
+    if (currentState === 2) {
+      percentage = 100;
+      currEthAmount = goalEthAmt;
+      project.state = "SUCCESSFUL";
+    } else {
+      percentage = (currEthAmount / goalEthAmt) * 100;
+      const currDateInt = Math.round(new Date().getTime() / 1000);
+      if (currDateInt >= projectDetails.deadline) {
+        project.state = "EXPIRED";
+      } else {
+        project.state = "RUNNING";
+      }
+    }
 
     project.percentageCompleted = Math.floor(percentage);
     project.goalEthAmt = goalEthAmt;
     project.currEthAmount = currEthAmount;
-	project.deadlineInt = projectDetails.deadline;
+    project.deadlineInt = projectDetails.deadline;
 
-	// console.log(currEthAmount);
-
-	res.status(200).send(project);
+    res.status(200).send(project);
   }
 };
 

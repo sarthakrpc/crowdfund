@@ -9,6 +9,7 @@ import abiProject from "../../../../../../contractABI/projectABI.json";
 import useMetaMask from "./../../../../hooks/Web3Connect/GetConnection";
 import { useState, useEffect } from "react";
 import ModalContribution from "./assembleComponents/ModalContribution";
+import RefundSystem from "../../Shareables/RefundSystem";
 
 const RouteComponents = ({
   title,
@@ -20,8 +21,12 @@ const RouteComponents = ({
   goalEthAmt,
   currEthAmount,
   percentageCompleted,
-  link,
+  ytLink,
   projectAddress,
+  state,
+  handleShow,
+  handleClose,
+  show,
 }) => {
   const {
     webProvider,
@@ -32,53 +37,58 @@ const RouteComponents = ({
     address,
   } = useMetaMask();
   const [inputVal, setInput] = useState("");
-  const [show, setShow] = useState(false);
-  const [expired, setExpiry] = useState(false);
-  const [date, setDate] = useState('');
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const handleExpiry = () => setExpiry(true);
+  const [date, setDate] = useState("");
+  const [note, setNote] = useState("");
 
   const getFormattedDate = (deadlineInt) => {
     const date = new Date(deadlineInt * 1000);
     const day = moment(date).format("dddd");
-    const today = Math.round(new Date().getTime() / 1000);
-
-    if (deadlineInt <= today) {
-      handleExpiry();
-      setDate("EXPIRED")
-    } else {
-      const dateFormatted = moment(date).format("MMMM Do YYYY");
-      const formatReturn = `${day}, ${dateFormatted}`;
-      setDate(formatReturn);
-    }
+    const dateFormatted = moment(date).format("MMMM Do YYYY");
+    const formatReturn = `${day}, ${dateFormatted}`;
+    setDate(formatReturn);
   };
-  useEffect(()=> {
-	getFormattedDate(deadlineInt)
-  }, [])
+  useEffect(() => {
+    getFormattedDate(deadlineInt);
+  }, [deadlineInt]);
+  const returnProjectInstance = () => {
+    const projectInstance = new ethers.Contract(
+      projectAddress,
+      abiProject.abi,
+      signer
+    );
+    return projectInstance;
+  };
   const onChainSubmit = async (value) => {
     if (isConnected && isSupportedNetwork) {
       try {
-        const weiValue = utils.parseEther(value.toString());
+        const project = returnProjectInstance();
+        if (value === "refund") {
+          const refundToken = await project.getRefund();
+          const receipt = await refundToken.wait();
+          const events = receipt?.events;
+          handleShow();
+		  setNote("Refund Complete");
+		  
+        } else {
+          const weiValue = utils.parseEther(value.toString());
+          const options = { value: weiValue };
+          const sendTransaction = await project.contribute(options);
 
-        const project = new ethers.Contract(
-          projectAddress,
-          abiProject.abi,
-          signer
-        );
-        const options = { value: weiValue };
-        const sendTransaction = await project.contribute(options);
-
-        const receipt = await sendTransaction.wait();
-        setInput("");
-        const events = receipt?.events;
-        console.log(events[0].args.contributor);
-
-        setShow(true);
+          const receipt = await sendTransaction.wait();
+          setInput("");
+          const events = receipt?.events;
+		  // console.log(events[0].currentTotal);
+          // console.log(events[0].args.contributor);
+          handleShow();
+		  setNote("Thanks for your contribution");
+        }
       } catch (err) {
         console.log(err);
       }
     }
+  };
+  const handleRefund = () => {
+    onChainSubmit("refund");
   };
   const inputHandler = (e) => {
     setInput(e.target.value);
@@ -93,19 +103,23 @@ const RouteComponents = ({
         <div
           className={`d-flex flex-column flex-lg-row align-items-end ${styles.headingControl} mt-4`}
         >
-          <CarouselComponent images={images} uid={uid} link={link} />
+          <CarouselComponent images={images} uid={uid} ytLink={ytLink} />
 
           <div className={`mt-3 p-0 p-lg-3 ${styles.donateInputCtrl}`}>
             <div className={`mt-3 w-100 p-0 p-lg-3 ${styles.donateCard}`}>
               <div className="mb-3 d-flex flex-row justify-content-center">
-                <div className="h2 fw-bolder">{currEthAmount}</div>
+                <div className="h2 fw-bolder">
+                  {(Math.round(currEthAmount * 100) / 100).toString()}
+                </div>
                 <div className="h2">/</div>
-                <div className="h2 fw-bolder">{goalEthAmt}</div>
+                <div className="h2 fw-bolder">
+                  {(Math.round(goalEthAmt * 100) / 100).toString()}
+                </div>
                 <div className={`${styles.networkZoomIn}`}>
                   <NetworkDynamicRender networkId={1337} />{" "}
                 </div>
               </div>
-              {!expired ? (
+              {state === "RUNNING" ? (
                 <>
                   <ProgressBar
                     animated
@@ -129,13 +143,12 @@ const RouteComponents = ({
                     DONATE
                   </Button>
                 </>
+              ) : state === "EXPIRED" ? (
+                <RefundSystem handleRefund={handleRefund} />
               ) : (
-				<Button
-                    className="mb-3 w-100"
-                    // onClick={handleRefund}
-                  >
-                    REFUND
-                  </Button>
+                <Button className="mb-3 w-100" disabled variant="success">
+                  SUCCESSFUL
+                </Button>
               )}
             </div>
           </div>
@@ -145,6 +158,7 @@ const RouteComponents = ({
           handleShow={handleShow}
           show={show}
           title={title}
+          note={note}
         />
         <div className={`${styles.headingControl} mt-5`}>
           <div

@@ -12,10 +12,12 @@ const projectSchema = new Schema({
   deadlineInt: { type: Number, required: true, trim: true },
   images: { type: [String], required: true, trim: true },
   coverImage: { type: String, required: true, trim: true },
-  link: { type: String, required: false, trim: true },
+  ytLink: { type: String, required: false, trim: true },
   percentageCompleted: { type: Number, required: false, trim: true },
   goalEthAmt: { type: Number, required: false, trim: true },
   currEthAmount: { type: Number, required: false, trim: true },
+  state: { type: String, required: false, trim: true },
+  stateInt: { type: Number, required: false, trim: true },
 });
 
 // const project = mongoose.model("project", projectSchema);
@@ -24,7 +26,7 @@ const projectSchema = new Schema({
 
 // module.exports = mongoose.models.projectSchema || mongoose.model("project", projectSchema);
 
-mongoose.models={};
-const Project = mongoose.model('Project', projectSchema)
+mongoose.models = {};
+const Project = mongoose.model("Project", projectSchema);
 
 export default Project;

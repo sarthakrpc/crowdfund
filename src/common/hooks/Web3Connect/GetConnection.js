@@ -40,7 +40,7 @@ export const GetConnection = ({ children }) => {
         await setisConnected(true);
         await setisSupportedNetwork(true);
 
-		console.log(signer);
+		// console.log(signer);
 
         if (!CHAIN_IDS.includes(networkId)) {
           setisSupportedNetwork(false);

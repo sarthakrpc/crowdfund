@@ -1,10 +1,12 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
-const CarouselComponent = ({ images, uid, link }) => {
-  const updateLink = (link) => {
-    const newLink = link.replace("watch?v=", "embed/");
-    return newLink;
+const CarouselComponent = ({ images, uid, ytLink }) => {
+  const updateLink = (ytLink) => {
+    
+      const newLink = ytLink.replace("watch?v=", "embed/");
+      return newLink;
+  
   };
   return (
     <>
@@ -21,25 +23,25 @@ const CarouselComponent = ({ images, uid, link }) => {
                 />
               </div>
             ))
-          : -1}
-        {link.length > 0 ? (
-          <div key={`/projectAssets/${uid}/${link}`}>
-            <iframe
-              width="800"
-              height="400"
-              src={updateLink(link)}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
+          : ""}
+        {ytLink ? (
+          <>
+            <div key={`/projectAssets/${uid}/${ytLink}`}>
+              <iframe
+                width="800"
+                height="400"
+                src={updateLink(ytLink)}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </>
         ) : (
           <div className="w-100 h-100 d-flex align-items-center justify-content-center fw-bold">
-			  <h3>
-				  No Video Available!!!
-			  </h3>
-		  </div>
+            <h3>No Video Available!!!</h3>
+          </div>
         )}
       </Carousel>
     </>
