@@ -1,17 +1,10 @@
 import React from "react";
 import { Modal, Container, Row, Col, Button } from "react-bootstrap";
 import moment from "moment";
-import useMetaMask from "../../../hooks/Web3Connect/GetConnection";
-import {
-  POLYGON_TESTNET_CHAIN_ID,
-  FANTOM_TESTNET_CHAIN_ID,
-  LOCALHOST_TESTNET_CHAIN_ID,
-} from "../../../hooks/chainDetails/testnetDetails";
 import NetworkImgRender from "../Shareables/NetworkImgRender";
 import styles from "../../../../styles/fundCampaignIndex.module.css";
 
 const ConfirmModal = ({ formValue, onHide, show, closeModal }) => {
-  const { currentNetwork, isConnected } = useMetaMask();
   return (
     <>
       <Modal

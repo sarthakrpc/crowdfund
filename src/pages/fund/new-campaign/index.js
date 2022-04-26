@@ -22,8 +22,8 @@ const index = () => {
     currentNetwork,
     address,
   } = useMetaMask();
-  const addressCrowdfund = "0x0B77eb9010fDcE9F0B504Ee2d373C4596b13378d";
-  const feesTaker = "0x107750264C218E1985b7B248DF6FCfa279682f35";
+  const addressCrowdfund = "0xd5fb453C1E25dF8774c2dB9008fA58Dbd7FfAb24";
+  const feesTaker = "0x0C08aF4089D4f8C77F053bC74481Ae934F099c7e";
 
   const [networkValidating, setNetworkValidating] = useState(false);
   const [serverValidating, setServerValidating] = useState(false);

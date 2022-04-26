@@ -10,6 +10,7 @@ import useMetaMask from "./../../../../hooks/Web3Connect/GetConnection";
 import { useState, useEffect } from "react";
 import ModalContribution from "./assembleComponents/ModalContribution";
 import RefundSystem from "../../Shareables/RefundSystem";
+import { POLYGON_TESTNET_CHAIN_ID } from "../../../../hooks/chainDetails/testnetDetails";
 
 const RouteComponents = ({
   title,
@@ -116,7 +117,7 @@ const RouteComponents = ({
                   {(Math.round(goalEthAmt * 100) / 100).toString()}
                 </div>
                 <div className={`${styles.networkZoomIn}`}>
-                  <NetworkDynamicRender networkId={1337} />{" "}
+                  <NetworkDynamicRender networkId={POLYGON_TESTNET_CHAIN_ID} />{" "}
                 </div>
               </div>
               {state === "RUNNING" ? (

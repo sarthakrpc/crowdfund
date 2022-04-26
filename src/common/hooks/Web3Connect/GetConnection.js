@@ -3,7 +3,6 @@ import { ethers, Signer } from "ethers";
 import {
   CHAIN_IDS,
   POLYGON_TESTNET_CHAIN_ID,
-  FANTOM_TESTNET_CHAIN_ID,
 } from "../chainDetails/testnetDetails";
 
 export const MetaMaskContext = createContext(null);
@@ -103,25 +102,6 @@ export const GetConnection = ({ children }) => {
                 },
                 rpcUrls: ["https://matic-mumbai.chainstacklabs.com"],
                 blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
-              },
-            ],
-          });
-        }
-
-        if (chainIdparam === FANTOM_TESTNET_CHAIN_ID) {
-          await window.ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: [
-              {
-                chainName: "Fantom Testnet",
-                chainId: ethers.utils.hexValue(chainIdparam),
-                nativeCurrency: {
-                  name: "FTM",
-                  decimals: 18,
-                  symbol: "FTM",
-                },
-                rpcUrls: ["https://rpc.testnet.fantom.network/"],
-                blockExplorerUrls: ["https://testnet.ftmscan.com/"],
               },
             ],
           });

@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     const { uid } = req.query;
-    const url = "http://localhost:8545";
+    const url = "https://rpc-mumbai.matic.today";
     const project = await Project.findOne({ uid: uid.toString() });
     const projectAddress = project.projectAddress.toString();
     const provider = new ethers.providers.JsonRpcProvider(url);

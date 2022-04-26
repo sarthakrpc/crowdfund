@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const url = "http://localhost:8545";
+    const url = "https://rpc-mumbai.matic.today";
     const projectAddress = req.body.projectAddress;
     const provider = new ethers.providers.JsonRpcProvider(url);
 

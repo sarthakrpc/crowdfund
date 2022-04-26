@@ -30,9 +30,9 @@ const NetworksSelect = () => {
             <FantomRender />
           ) 
 		  :  */}
-          {currentNetwork === LOCALHOST_TESTNET_CHAIN_ID &&
+          {currentNetwork === POLYGON_TESTNET_CHAIN_ID &&
           isConnected === true ? (
-            <LocalhostRender />
+            <PolygonRender />
           ) : (
             <span>Not Supported</span>
           )}

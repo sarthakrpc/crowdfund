@@ -3,14 +3,6 @@ import styles from "../../../../styles/fundCampaignIndex.module.css";
 import { Button, Form } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
-import ThumbImage from "./ThumbImage";
-import Image from "next/image";
-import {
-  LOCALHOST_TESTNET_CHAIN_ID,
-  POLYGON_TESTNET_CHAIN_ID,
-  FANTOM_TESTNET_CHAIN_ID,
-} from "../../../hooks/chainDetails/testnetDetails";
-import useMetaMask from "../../../hooks/Web3Connect/GetConnection";
 import NetworkImgRender from "../Shareables/NetworkImgRender";
 
 const retDate = () => {
@@ -45,7 +37,6 @@ const schema = yup.object().shape({
 });
 
 const FormPage = ({ nextStep, formValue, handleFormPageData }) => {
-  const { currentNetwork, isConnected } = useMetaMask();
 
   const submitFormData = (e) => {
     nextStep(1);
@@ -128,23 +119,6 @@ const FormPage = ({ nextStep, formValue, handleFormPageData }) => {
                   <div className="mx-2 d-flex">
                     <div className={styles.negativeMargin}>
 					<NetworkImgRender />
-                      {/* <Image
-                        src={`/${
-                          currentNetwork === POLYGON_TESTNET_CHAIN_ID &&
-                          isConnected
-                            ? "polygon"
-                            : currentNetwork === FANTOM_TESTNET_CHAIN_ID &&
-                              isConnected
-                            ? "fantom"
-                            : currentNetwork === LOCALHOST_TESTNET_CHAIN_ID &&
-                              isConnected
-                            ? "localhost"
-                            : "disconnected"
-                        }-logo.png`}
-                        alt="Picture of the author"
-                        width={20}
-                        height={20}
-                      /> */}
                     </div>
                   </div>
                 </div>

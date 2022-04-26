@@ -15,14 +15,9 @@ const CampaignTabs = ({ address, isSupportedNetwork, isConnected, signer }) => {
 
   const getFormattedDate = (deadlineInt) => {
     const date = new Date(deadlineInt * 1000);
-    // const today = Math.round(new Date().getTime() / 1000);
-    // if (deadlineInt <= today) {
-    //   return "EXPIRED";
-    // } else {
     const dateFormatted = moment(date).format("MMMM Do YYYY");
     const formatReturn = `${dateFormatted}`;
     return formatReturn;
-    // }
   };
 
   const fetchReq = async (body) => {
@@ -47,7 +42,7 @@ const CampaignTabs = ({ address, isSupportedNetwork, isConnected, signer }) => {
 
   const donationsReq = async (address) => {
     try {
-      const addressCrowdfund = "0x0B77eb9010fDcE9F0B504Ee2d373C4596b13378d";
+      const addressCrowdfund = "0xd5fb453C1E25dF8774c2dB9008fA58Dbd7FfAb24";
       const crowFundInstance = new ethers.Contract(
         addressCrowdfund,
         abiCrowdfund.abi,

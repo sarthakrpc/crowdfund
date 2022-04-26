@@ -3,6 +3,7 @@ import styles from "../../../../styles/fundCampaignIndex.module.css";
 import useWindowDimensions from "./../Shareables/useWindowDimensions";
 import NetworkDynamicRender from "../Shareables/NetworkDynamicRender";
 import { useEffect, useState } from "react";
+import { POLYGON_TESTNET_CHAIN_ID } from "../../../hooks/chainDetails/testnetDetails";
 
 const CampaignCard = ({
   header,
@@ -42,7 +43,7 @@ const CampaignCard = ({
                   <span className={styles.amt}>
                     {tokenAmount.toLocaleString()}
                   </span>
-                  <NetworkDynamicRender networkId={1337} />
+                  <NetworkDynamicRender networkId={POLYGON_TESTNET_CHAIN_ID} />
                 </div>
                 <div
                   className={`ms-3 ${

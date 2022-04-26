@@ -7,7 +7,7 @@ import { sort } from "fast-sort";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     const allProjects = await Project.find({});
-    const url = "http://localhost:8545";
+    const url = "https://rpc-mumbai.matic.today";
     for (const project of allProjects) {
       const projectAddress = project.projectAddress;
       const provider = new ethers.providers.JsonRpcProvider(url);
