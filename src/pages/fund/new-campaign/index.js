@@ -123,6 +123,7 @@ const index = () => {
         setStringConfirmation("Synchronizing from Server...");
 
         let imageNames = [];
+		let coverImgUrl = "";
 
         for (let index = 0; index < formData.images.length; index++) {
           const bodyData = new FormData();
@@ -130,25 +131,33 @@ const index = () => {
             [formData.images[index]],
             `${formData.images[index].name}`
           );
-          bodyData.append("media", fileImg);
+          bodyData.append("file", fileImg);
+          bodyData.append("upload_preset", "my-uploads");
 
-          imageNames.push(formData.images[index].name);
+          // imageNames.push(formData.images[index].name);
 
-          bodyData.append("foldername", uid);
-          await axios("/api/new-campaign/projectImg", {
-            method: "POST",
-            data: bodyData,
-            "Content-Type": "multipart/form-data",
-          }).then((res) => console.log(res));
+          // bodyData.append("foldername", uid);
+          await axios(
+            "https://api.cloudinary.com/v1_1/db07nvhs7/image/upload",
+            {
+              method: "POST",
+              data: bodyData,
+              "Content-Type": "multipart/form-data",
+            }
+          ).then((res) => {
+            console.log(res.data.secure_url);
+            imageNames.push(res.data.secure_url);
+            if (formData.coverImg.name === formData.images[index].name) {
+				coverImgUrl = res.data.secure_url;
+            }
+          });
         }
-
-        console.log(imageNames);
 
         const data = {
           projectAddress: addressProject.toLowerCase(),
           title: formData.title,
           description: formData.description,
-          coverImage: formData.coverImg.name,
+          coverImage: coverImgUrl,
           link: formData.link,
           images: imageNames,
         };

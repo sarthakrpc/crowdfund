@@ -48,9 +48,6 @@ const index = () => {
     const formatReturn = `${dateFormatted}`;
     return formatReturn;
   };
-//   useEffect(() => {
-//     setIsLoading(false);
-//   }, []);
 
   return (
     <>
@@ -78,7 +75,7 @@ const index = () => {
                 <a className="w-100 text-decoration-none">
                   <CampaignCard
                     uid={campaign.uid}
-                    src={`/projectAssets/${campaign.uid}/${campaign.coverImage}`}
+                    src={campaign.coverImage}
                     header={campaign.title}
                     description={campaign.description}
                     tokenAmount={campaign.goalEthAmt}

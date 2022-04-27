@@ -15,7 +15,7 @@ const CarouselComponent = ({ images, uid, ytLink }) => {
           ? images.map((image) => (
               <div key={`/projectAssets/${uid}/${image}`}>
                 <img
-                  src={`/projectAssets/${uid}/${image}`}
+                  src={image}
                   className="rounded"
                   height="450"
                   width="900"

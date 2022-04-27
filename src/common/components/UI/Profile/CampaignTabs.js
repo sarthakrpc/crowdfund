@@ -153,11 +153,11 @@ const CampaignTabs = ({ address, isSupportedNetwork, isConnected, signer }) => {
     let isSubscribed = true;
     // setIsLoading(true);
     const fetchRequests = async () => {
-      if (contribution) {
-        if (!contribution.length) {
-          setIsLoading(true);
-        }
-      }
+    //   if (contribution) {
+    //     if (!contribution.length) {
+    //       setIsLoading(true);
+    //     }
+    //   }
       if (key === "campaigns") {
         const body = JSON.stringify({ projectStarter: address });
         // console.log(body);
@@ -216,7 +216,7 @@ const CampaignTabs = ({ address, isSupportedNetwork, isConnected, signer }) => {
               <a className="w-100 text-decoration-none text-dark">
                 <CampaignCard
                   uid={campaign.uid}
-                  src={`/projectAssets/${campaign.uid}/${campaign.coverImage}`}
+                  src={campaign.coverImage}
                   header={campaign.title}
                   description={campaign.description}
                   tokenAmount={Math.ceil(campaign.goalEthAmt)}
@@ -258,7 +258,7 @@ const CampaignTabs = ({ address, isSupportedNetwork, isConnected, signer }) => {
               <a className="w-100 text-decoration-none text-dark">
                 <CampaignCard
                   uid={campaign.uid}
-                  src={`/projectAssets/${campaign.uid}/${campaign.coverImage}`}
+                  src={campaign.coverImage}
                   header={campaign.title}
                   description={campaign.description}
                   tokenAmount={Math.ceil(campaign.goalEthAmt)}
