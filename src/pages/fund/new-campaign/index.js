@@ -28,7 +28,7 @@ const index = () => {
   const [networkValidating, setNetworkValidating] = useState(false);
   const [serverValidating, setServerValidating] = useState(false);
   const [verified, setVerified] = useState(false);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
   const [stringConfirmation, setStringConfirmation] = useState("");
 
   const [step, setStep] = useState(0);
@@ -92,7 +92,7 @@ const index = () => {
         setNetworkValidating(true);
         setStringConfirmation("Confirmation from Blockchain...");
         const weiValue = utils.parseEther(formData.amount.toString());
-		console.log(weiValue);
+        console.log(weiValue);
 
         const numStartDate = Math.round(new Date().getTime() / 1000);
 
@@ -115,32 +115,24 @@ const index = () => {
 
         const receipt = await sendTransaction.wait();
         const events = receipt?.events;
-        // console.log(events[0].args.contractAddress);
-        // console.log(BigNumber.from(events[0].args.deadline).toString());
-        // console.log(events[0].args.projectStarter);
-        // console.log(
-        //   ethers.utils.formatEther(
-        //     BigNumber.from(events[0].args.goalAmount).toString()
-        //   )
-        // );
-        // console.log(events[0].args.uniqueId);
 
         const addressProject = events[0].args.contractAddress.toString();
 
-        // const getAllAddress = await crowdfundContract.returnAllProjects();
-        // console.log(getAllAddress);
         setNetworkValidating(false);
         setServerValidating(true);
         setStringConfirmation("Synchronizing from Server...");
 
-		let imageNames = [];
+        let imageNames = [];
 
         for (let index = 0; index < formData.images.length; index++) {
           const bodyData = new FormData();
-          let fileImg = new File([formData.images[index]],`${formData.images[index].name}`);
+          let fileImg = new File(
+            [formData.images[index]],
+            `${formData.images[index].name}`
+          );
           bodyData.append("media", fileImg);
 
-		  imageNames.push(formData.images[index].name)
+          imageNames.push(formData.images[index].name);
 
           bodyData.append("foldername", uid);
           await axios("/api/new-campaign/projectImg", {
@@ -150,7 +142,7 @@ const index = () => {
           }).then((res) => console.log(res));
         }
 
-		console.log(imageNames);
+        console.log(imageNames);
 
         const data = {
           projectAddress: addressProject.toLowerCase(),
@@ -158,7 +150,7 @@ const index = () => {
           description: formData.description,
           coverImage: formData.coverImg.name,
           link: formData.link,
-		  images: imageNames
+          images: imageNames,
         };
         fetch("/api/new-campaign", {
           method: "POST",
@@ -176,17 +168,17 @@ const index = () => {
           })
           .catch((err) => {
             console.log(err);
-			setServerValidating(false);
-			setVerified(false);
-			setError(true)
-			setStringConfirmation("Error, could not submit project!!!");
+            setServerValidating(false);
+            setVerified(false);
+            setError(true);
+            setStringConfirmation("Error, could not submit project!!!");
           });
       } catch (error) {
         console.log(error);
-		setServerValidating(false);
-		setVerified(false);
-		setError(true)
-		setStringConfirmation("Something went wrong!!!");
+        setServerValidating(false);
+        setVerified(false);
+        setError(true);
+        setStringConfirmation("Something went wrong!!!");
       }
     } else {
       alert("Please connect to a supported network");
@@ -198,7 +190,7 @@ const index = () => {
     <>
       <HTMLHead title="New Campaign" />
       <div className={`${styles.mainControl} ${styles.bodyPaddingControl}`}>
-        <TitleElement titleName="New Campaign"/>
+        <TitleElement titleName="New Campaign" />
         <div className={styles.mainControl}>
           {step === 0 ? (
             <FormPage
@@ -233,7 +225,7 @@ const index = () => {
                 serverValidating={serverValidating}
                 verified={verified}
                 stringConfirmation={stringConfirmation}
-				error={error}
+                error={error}
               />
             </>
           ) : (

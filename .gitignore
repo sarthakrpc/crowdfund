@@ -42,3 +42,4 @@ next.config.js
 
 env.local
 
+/public/projectAssets/
