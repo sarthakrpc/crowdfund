@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const url = "https://rpc-mumbai.matic.today";
+    const url = "https://matic-mumbai.chainstacklabs.com";
     const projectAddress = req.body.projectAddress;
     const provider = new ethers.providers.JsonRpcProvider(url);
 
