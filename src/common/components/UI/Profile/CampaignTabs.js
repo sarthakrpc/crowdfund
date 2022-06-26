@@ -219,7 +219,7 @@ const CampaignTabs = ({ address, isSupportedNetwork, isConnected, signer }) => {
                   src={campaign.coverImage}
                   header={campaign.title}
                   description={campaign.description}
-                  tokenAmount={(Math.round(campaign.currEthAmount * 100) / 100).toString()}
+                  tokenAmount={(Math.round(campaign.goalEthAmt * 100) / 100).toString()}
                   percentage={campaign.percentageCompleted}
                   deadlineDate={getFormattedDate(campaign.deadlineInt)}
                   state={campaign.state}
@@ -261,7 +261,7 @@ const CampaignTabs = ({ address, isSupportedNetwork, isConnected, signer }) => {
                   src={campaign.coverImage}
                   header={campaign.title}
                   description={campaign.description}
-                  tokenAmount={(Math.round(campaign.currEthAmount * 100) / 100).toString()}
+                  tokenAmount={(Math.round(campaign.goalEthAmt * 100) / 100).toString()}
                   percentage={campaign.percentageCompleted}
                   deadlineDate={getFormattedDate(campaign.deadlineInt)}
                   state={campaign.state}
