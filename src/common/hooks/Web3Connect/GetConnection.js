@@ -1,5 +1,5 @@
 import { useState, createContext, useMemo, useContext, useEffect } from "react";
-import { ethers, Signer } from "ethers";
+import { ethers } from "ethers";
 import {
   CHAIN_IDS,
   POLYGON_TESTNET_CHAIN_ID,
